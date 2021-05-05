@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(tgSvs.isChecked()) {
-                    Double rate = 0.1;
+                     newAmount = newAmount * 1.1;
 
                 }
             }
@@ -75,8 +75,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(tgGst.isChecked()) {
-                    Double gst = 0.07;
-                   
+                    newAmount = newAmount *1.07;
                 }
 
             }
