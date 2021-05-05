@@ -22,8 +22,6 @@ public class MainActivity extends AppCompatActivity {
     ToggleButton tgGst;
     TextView tvDiscount;
     EditText etDiscount;
-    RadioButton rbCash;
-    RadioButton rbPaynow;
     RadioGroup rgPaymentMode;
     Button btnSplit;
     Button btnReset;
@@ -45,28 +43,21 @@ public class MainActivity extends AppCompatActivity {
         tgGst = findViewById(R.id.toggleButtonGst);
         tvDiscount = findViewById(R.id.textViewDiscount);
         etDiscount = findViewById(R.id.editTextNumberDiscount);
-        rbCash = findViewById(R.id.radioButtonCash);
-        rbPaynow = findViewById(R.id.radioButtonPaynow);
         rgPaymentMode = findViewById(R.id.radioGroupPaymentMode);
         btnSplit = findViewById(R.id.buttonSplit);
         btnReset = findViewById(R.id.buttonReset);
         tvTotalBill = findViewById(R.id.textViewDisplayTotalBill);
         tvEachPay = findViewById(R.id.textViewDisplayEachPays);
-        Double newAmount = Double.parseDouble(tvAmount.getText().toString());
 
-        // integer = parse integer(    .getText().toString())
-        // for reset use setText to set fields to ""
-        //digits = "1234567890" to let number keyboard appear
-
-
+        Double newAmount = Double.parseDouble(etAmount.getText().toString());
         // create new variable newAmount and assign tvAmount value to it
+
 
         tgSvs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(tgSvs.isChecked()) {
                      newAmount = newAmount * 1.1;
-
                 }
             }
         });
@@ -77,13 +68,28 @@ public class MainActivity extends AppCompatActivity {
                 if(tgGst.isChecked()) {
                     newAmount = newAmount *1.07;
                 }
-
             }
         });
+        integer discount = integer.parseInteger(etDiscount.getText().toString());
+        //convert discount to integer for calculation
+        newAmount = newAmount * (100-discount);
 
+        int checkedRadioId = rgPaymentMode.getCheckedRadioButtonId();
+        //for checking what is user input for radio group
+        rgPaymentMode.check(checkedRadioId);
+        //call the check method
 
-
-
+        String output = "";
+        String output2 = "";
+        tvTotalBill.setText(output);
+        if (checkedRadioId == R.id.radioButtonCash) { //checking user input and produce necessary output
+            output += String.format("Total Bill: $%.2f", newAmount);
+            output2 += String.format("Each pays: $%.2f in cash", newAmount);
+        }
+        else {
+            output += String.format("Total Bill: $%.2f ", newAmount);
+            output2 += String.format("Each pays: $%.2f via Paynow to 91234567", newAmount);
+        }
 
     }
 }
